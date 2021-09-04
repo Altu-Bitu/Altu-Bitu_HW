@@ -22,11 +22,9 @@ int main()
 		num++;
 		if (a[i] > 0)
 		{
-			if (a[i] % c == 0)
-				num += (a[i] / c);
-			else
+			num += (a[i] / c);
+			if(a[i]%c!=0)
 			{
-				num += (a[i] / c);
 				num += 1;
 			}
 		}

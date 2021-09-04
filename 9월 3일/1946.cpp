@@ -19,7 +19,6 @@ int check(int n)
 {
 	int num = 1;
 	
-	sort(a.begin(), a.end(),cmp);
 	int ans = a[0].s2;
 	for (int i = 1; i < n; i++)
 	{
@@ -42,8 +41,9 @@ int main() {
 	{
 		cin >> n;
 		a.assign(n, {});
-		for (int i = 0; i < n; i++)
-			cin >> a[i].s1 >> a[i].s2;
+		for (int j = 0; j < n; j++)
+			cin >> a[j].s1 >> a[j].s2;
+		sort(a.begin(), a.end(), cmp);
 		cnt[i] = check(n);
 	}
 

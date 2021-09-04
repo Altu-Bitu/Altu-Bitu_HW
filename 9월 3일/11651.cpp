@@ -1,34 +1,36 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 using namespace std;
-
+/*
 struct point {
 	int x;
 	int y;
-};
+};*/
 
-bool cmp(const point& p1, const point& p2)
+bool cmp(const pair<int,int> &p1, const pair<int,int>& p2)
 {
-	if (p1.y == p2.y)
-		return p1.x < p2.x;
-	return p1.y < p2.y;
+	if (p1.second == p2.second)
+		return p1.first < p2.first;
+	return p1.second < p2.second;
 }
 
 int main() {
 	int n;
 	cin >> n;
-	vector<point> p;
+	
+	vector<pair<int, int>> p;
 	p.assign(n, {});
 
 	for (int i = 0; i < n; i++)
-		cin >> p[i].x >> p[i].y;
+		cin >> p[i].first >> p[i].second;
 
 	sort(p.begin(), p.end(), cmp);
 
 	for (int i = 0; i < n; i++)
-		cout << p[i].x <<' '<< p[i].y << '\n';
+		cout << p[i].first <<' '<< p[i].second << '\n';
 
 	return 0;
 }
