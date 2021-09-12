@@ -8,7 +8,6 @@ int main()
 {
 	int t;
 	int flag = 0;
-	int r_flag = 0;
 	int rev = 0;
 	deque<int> q1;
 	deque<int> q2;
@@ -24,7 +23,7 @@ int main()
 		cin >> s;
 		for (int i = 1; i < s.length()-1; i++)
 		{
-			if (s[i] != ',')
+			if ('0'<=s[i]&&s[i]<='9') //숫자인지 판단하기
 				ss += s[i];
 			else
 			{
@@ -42,10 +41,6 @@ int main()
 			if (input[i] == 'R')
 			{
 				rev++;
-				if (rev % 2 != 0) //r이 홀수개면->r이 한개인것처럼
-					r_flag = 1;
-				else
-					r_flag = 2; //r이 짝수개면->r이 0개인것 처럼
 			}
 
 			else if (input[i] == 'D')
@@ -58,57 +53,47 @@ int main()
 				}
 				else
 				{
-					if (r_flag == 1)
+					if (rev % 2 != 0)
 						q1.pop_back();
-					else if(r_flag==2)
+					else
 						q1.pop_front();
 				}
 			}
-
-			
-
-			/*else if (input[i] == 'R')
-			{
-				while(!q1.empty())
-				{
-					q2.push_back(q1.back());
-					q1.pop_back();
-				}
-
-				while(!q2.empty())
-				{
-					q1.push_back(q2.front());
-					q2.pop_front();
-				}
-			}*/
 
 		}
 
 		if (flag == 0)//error가 아니면 숫자 배열 출력하기
 		{
-			int n = q1.size();
-			str += "[";
-			while(!q1.empty())
+			if (q1.empty())
 			{
-				if (r_flag == 2)
+				str += "[]\n";
+			}
+			else
+			{
+				int n = q1.size();
+				str += "[";
+				while (!q1.empty())
 				{
-					str += to_string(q1.front());
-					q1.pop_front();
-				}
+					if (rev % 2 == 0)
+					{
+						str += to_string(q1.front());
+						q1.pop_front();
+					}
 
-				if (r_flag == 1)
-				{
-					str += to_string(q1.back());
-					q1.pop_back();
-				}
-				if (q1.empty())
-				{
-					str += "]\n";
-					break;
-				}
-				else
-				{
-					str += ",";
+					else
+					{
+						str += to_string(q1.back());
+						q1.pop_back();
+					}
+					if (q1.empty())
+					{
+						str += "]\n";
+						break;
+					}
+					else
+					{
+						str += ",";
+					}
 				}
 			}
 		}

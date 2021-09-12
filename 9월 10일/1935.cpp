@@ -6,6 +6,27 @@ using namespace std;
 
 vector<double> num;
 stack<double> s;
+
+void compute(double op1,double op2,char ch)
+{
+	switch (ch)
+	{
+	case '+':
+		s.push(op1 + op2);
+		break;
+	case '-':
+		s.push(op1 - op2);
+		break;
+	case'*':
+		s.push(op1 * op2);
+		break;
+	case '/':
+		s.push(op1 / (double)op2);
+		break;
+	}
+	return;
+}
+
 double eval(string input)
 {
 	char ch;
@@ -15,9 +36,9 @@ double eval(string input)
 	for (int i = 0; i < len; i++) //숫자만 스택에 넣고 연산자 나오면 계산해서 다시 스택에 넣기
 	{
 		ch = input[i];
-		if (ch != '+' && ch != '-' && ch != '*' && ch != '/')
+		if ('A'<=ch&&ch<='Z') //더 깔끔한 방법으로 수정
 		{
-			value = ch - 65;
+			value = ch - 'A';
 			s.push(num[value]);
 		}
 		else
@@ -26,23 +47,8 @@ double eval(string input)
 			s.pop();
 			op1 = s.top();
 			s.pop();
-			switch (ch)
-			{
-			case '+':
-				s.push(op1 + op2);
-				break;
-			case '-':
-				s.push(op1 - op2);
-				break;
-			case'*':
-				s.push(op1 * op2);
-				break;
-			case '/':
-				s.push(op1 / (double)op2);
-				break;
-			}
+			compute(op1, op2, ch);
 			
-
 		}
 
 	}

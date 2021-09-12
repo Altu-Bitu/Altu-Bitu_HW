@@ -3,9 +3,9 @@
 #include <vector>
 #include <map>
 
-#define pp pair<string,int>
-
 using namespace std;
+
+typedef pair<string, int> pp; //typedef로 변경
 
 bool cmp(const pp &a,const pp &b) //정렬 기준 설정
 {
