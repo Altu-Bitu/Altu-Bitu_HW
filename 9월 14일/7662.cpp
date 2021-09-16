@@ -4,17 +4,18 @@
 
 using namespace std;
 
+typedef pair<int, int> pp;
 int main()
 {
 	int t, k, n;
-	priority_queue<int> pq1;
-	priority_queue<int, vector<int>, greater<int>> pq2;
-
 	char input;
 	string result;
 	cin >> t;
 	while (t--)
 	{
+		priority_queue<pp> pq1;
+		priority_queue<pp, vector<pp>, greater<pp>> pq2;
+		bool visited[1000001];//index역할 수행
 		cin >> k;
 		for (int i = 0; i < k; i++)
 		{
@@ -22,49 +23,53 @@ int main()
 			switch (input)
 			{
 			case 'I':
-				pq1.push(n);
+				pq1.push({ n,i });
+				pq2.push({ n,i });
+				visited[i] = true;
 				break;
 			case 'D':
-				if (!pq1.empty())
+				if (n == 1)
 				{
-					if (n == -1)
-					{
-						while (!pq1.empty())
-						{
-							pq2.push(pq1.top());
-							pq1.pop();
-						}
-						pq2.pop();
-
-						while (!pq2.empty())
-						{
-							pq1.push(pq2.top());
-							pq2.pop();
-						}
+					while (!pq1.empty() && !visited[pq1.top().second])//이미 삭제된거 다른 큐에서도 지우기
+						pq1.pop();
+					if (!pq1.empty()) {
+						int index = pq1.top().second;
+						pq1.pop();
+						visited[index] = false;
 					}
 
-					else
-						pq1.pop();
 				}
+
+				else
+				{
+					while (!pq2.empty() && !visited[pq2.top().second])
+						pq2.pop();
+					if (!pq2.empty())
+					{
+						int index = pq2.top().second;
+						pq2.pop();
+						visited[index] = false;
+					}
+				}
+				break;
 			}
 		}
-		if (pq1.empty())
-			result += "EMPTY\n";
+		while (!pq1.empty() && !visited[pq1.top().second])//이미 삭제된거 다른 큐에서도 지우기
+			pq1.pop();
+		while (!pq2.empty() && !visited[pq2.top().second])
+			pq2.pop();
+		if (pq1.empty()&&pq2.empty())
+			result+="EMPTY\n";
 		else
 		{
-			result += to_string(pq1.top());
-			while (!pq1.empty())
-			{
-				pq2.push(pq1.top());
-				pq1.pop();
-			}
+			result += to_string(pq1.top().first);
 			result += ' ';
-			result += to_string(pq2.top());
-			result += '\n';
-
+			result += to_string(pq2.top().first);
+			result+='\n';
 		}
 	}
 
 	cout << result;
+
 	return 0;
 }
