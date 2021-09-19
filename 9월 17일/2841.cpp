@@ -21,18 +21,16 @@ int main()
 		}
 		else
 		{
-			while (s[input1].top().second > input2)
+			while (!s[input1].empty()&&s[input1].top().second > input2)
 				{
 					s[input1].pop();
 					cnt++;
-					if (s[input1].empty())
-						break;
 				}
-				if (s[input1].empty()||s[input1].top().second != input2)
-				{
-					s[input1].push({ input1,input2 });
-					cnt++;
-				}
+			if (s[input1].empty()||s[input1].top().second != input2)
+			{
+				s[input1].push({ input1,input2 });
+				cnt++;
+			}
 		}
 	}
 	cout << cnt;

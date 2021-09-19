@@ -39,12 +39,9 @@ int main()
 		{
 			for (int i = 3; i < list[k]; i++)
 			{
-				if (is_prime[i])
+				if (is_prime[i]&&is_prime[list[k]-i])
 				{
-					int b = list[k] - i;
-					if (is_prime[b])
-					{
-
+						int b = list[k] - i;
 						str += to_string(list[k]);
 						str += " = ";
 						str += to_string(i);
@@ -52,7 +49,6 @@ int main()
 						str += to_string(b);
 						str += '\n';
 						break;
-					}
 				}
 			}
 		}
