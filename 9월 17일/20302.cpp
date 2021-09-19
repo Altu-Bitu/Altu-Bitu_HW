@@ -1,39 +1,57 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-
+#include <vector>
 using namespace std;
 const int MAX = 100000;
 
 int p[MAX + 1];//넣어두는 집합
 
+const int SIZE = 100000;
+vector<int> isPrime() {
+	vector<int> prime(SIZE, 0);
+
+	//먼저 모든 수를 소수라 가정하고, i번째 인덱스에 i값 저장
+	for (int i = 2; i <= SIZE; i++)
+		prime[i] = i;
+
+	//소수 판별
+	for (int i = 2; i <= sqrt(SIZE); i++) {
+		if (prime[i] == i) { //소수라면
+			for (int j = i * i; j <= SIZE; j += i) { //배수에 소수(i) 저장
+				if (prime[j] == j) { //저장된 소수가 없을 경우만
+					prime[j] = i; //소수 저장
+				}
+			}
+		}
+	}
+
+	return prime;
+}
+
+vector<int>prime = isPrime();
+
+
 void put(int num)
 {
-	int a = sqrt(num); //소인수분해확인
-	for(int i=2;i<=a;i++)
-		while (!(num % i)) //나뉘어지면
-		{
-			num /= i; //수를 나누고
-			p[i]++; //나눈 소수를 배열에 넣는다->있다고 표시하는것
-		}
-	if (num > 1)
-		p[num]++; //남은 수가 소수라면 그 수를 넣는다.
+	while (num > 1)
+	{
+		p[prime[num]]++;
+		num = num / prime[num];
+	}
 }
 
 void remove(int num)
 {
-	int a = sqrt(num);
-	for(int i=2;i<=a;i++)
-		while (!(num % i)) //나뉘어지면
-		{
-			num /= i; //수를 나누고
-			p[i]--; //나눈 소수를 배열에 넣는다->있다고 표시하는것
-		}
-	if (num > 1)
-		p[num]--;//p에 만약에 음수가있다면 분모라는것
+	while (num > 1)
+	{
+		p[prime[num]]--;
+		num = num / prime[num];
+	}
 }
 int main()
 {
+	
 	int n,num;
 	char op;
 	int zero_flag = 0;
