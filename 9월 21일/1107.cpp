@@ -7,9 +7,9 @@
 using namespace std;
 
 int error[10];
-int INF=1000001; //고장났을경우 고려
+const int INF=1000001; //고장났을경우 고려
 
-int check(int now)
+bool check(int now)
 {
 	string s = to_string(now);
 	for (int i = 0; i < s.length(); i++)
@@ -32,16 +32,15 @@ int main()//**
 
 	int now = abs(n - 100);//+ 혹은 -로만 접근
 	int cnt = 0;
-	int Min = 1000001;
 	for (int i = 0; i <= INF; i++)
 	{
 		if (check(i)) //숫자로 누를수있는지 체크
 		{
 			cnt = to_string(i).length(); //몇개를 숫자로 눌렀는가
 			cnt += abs(i - n); //조정하기
-			Min = min(cnt, Min);
+			now = min(cnt, now);
 		}
 	}
-	cout << min(Min, now);
+	cout << now;
 	return 0;
 }

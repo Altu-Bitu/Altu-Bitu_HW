@@ -17,7 +17,6 @@ double avg(vector<int> a)
 
 int mid(vector<int> a)
 {
-	sort(a.begin(), a.end());
 	int size = a.size() / 2;
 	return a[size];
 }
@@ -35,24 +34,13 @@ int mode()
 	sort(vec.begin(), vec.end(), cmp);
 	if (vec[0].second == vec[1].second)
 		return vec[1].first;
-	else
-		return vec[0].first;
+	return vec[0].first;
 }
 
 int diff(vector<int> a)
 {
-	int max_num = a[0];
-	for (int i = 1; i < a.size(); i++)
-		if (max_num < a[i])
-			max_num = a[i];
-	int min_num = a[0];
-	for (int i = 1; i < a.size(); i++)
-		if (min_num > a[i])
-			min_num = a[i];
-	return max_num - min_num;
+	return a[a.size()-1] - a[0];
 }
-
-
 
 int main()
 {
@@ -65,6 +53,7 @@ int main()
 		cin >> a[i];
 		m[a[i]]++;
 	}
+	sort(a.begin(), a.end());
 	cout << fixed;
 	cout.precision(0);
 	cout << avg(a)<<'\n' << mid(a) << '\n' << mode() << '\n' << diff(a);

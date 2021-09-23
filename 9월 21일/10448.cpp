@@ -14,7 +14,7 @@ void prec() //1000까지만 입력되므로 거기까지만 Tn구해둔다
 	}
 }
 
-int check(int input)
+bool check(int input) //bool로 수정
 {
 	for (int i = 0; i < t.size(); i++)
 	{
