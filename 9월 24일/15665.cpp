@@ -1,4 +1,7 @@
 #include <iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -6,6 +9,7 @@ const int SIZE = 8;
 
 int n, m, max_num;
 int num[SIZE];
+vector<int> inputs;
 bool check[10001];
 
 
@@ -18,13 +22,10 @@ void backtracking(int cnt)
 		cout << '\n';
 		return;
 	}
-	for (int i = 1; i <= max_num; i++)
+	for (int i = 0; i < inputs.size(); i++)
 	{
-		if (check[i])//수가 있는가?
-		{
-			num[cnt] = i;
-			backtracking(cnt + 1);
-		}
+		num[cnt] = inputs[i];
+		backtracking(cnt + 1);
 	}
 }
 
@@ -36,10 +37,12 @@ int main()
 	for (int i = 0; i < n; i++)
 	{
 		cin >> input;
-		if (max_num < input)
-			max_num = input;
+		if (check[input])
+			continue;
+		inputs.push_back(input);
 		check[input] = true;
 	}
+	sort(inputs.begin(), inputs.end());
 	backtracking(0);
 	return 0;
 }

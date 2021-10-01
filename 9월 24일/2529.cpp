@@ -16,14 +16,11 @@ bool check_val(int i, char c)
 	{
 		if (list[i] - '0' < list[i + 1] - '0')
 			return true;
-		else
-			return false;
 	}
 	else
 		if (list[i] - '0' > list[i + 1] - '0')
 			return true;
-		else
-			return false;
+	return false;
 }
 
 bool cal()
@@ -54,7 +51,7 @@ void dfs() //순열 구하는 방법
 
 	for (int i = 0; i <= 9; i++)
 	{
-		if (!check[i])
+		if (!check[i]) //없던거라면
 		{
 			check[i] = true;
 			list.push_back(i+'0');
