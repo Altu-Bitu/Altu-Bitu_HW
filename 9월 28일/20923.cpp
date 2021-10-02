@@ -2,131 +2,104 @@
 #include <deque>
 
 using namespace std;
+deque<int> dodo;
+deque<int> dodoG;
+deque<int> su;
+deque<int> suG;
+void transfer(deque<int> &a, deque<int> &b, deque<int> &c)
+{
+	while (!a.empty())
+	{
+		b.push_front(a.front());
+		a.pop_front();
+	}
+
+	while (!c.empty())
+	{
+		b.push_front(c.front());
+		c.pop_front();
+	}
+}
+
+int cardGameDo()
+{
+	dodoG.push_back(dodo.back());
+	dodo.pop_back();
+
+	if (dodo.empty())
+	{
+		cout << "su";
+		return 0;
+	}
+
+	if (dodoG.back() == 5)
+		transfer(suG, dodo, dodoG);
+
+	if (!dodoG.empty() && !suG.empty())
+	{
+		if (dodoG.back() + suG.back() == 5)
+			transfer(dodoG, su, suG);
+	}
+	return 1;
+}
+
+int cardGameSu()
+{
+	suG.push_back(su.back());
+	su.pop_back();
+
+	if (su.empty())
+	{
+		cout << "do";
+		return 0;
+	}
+
+	if (suG.back() == 5)
+		transfer(suG, dodo, dodoG);
+
+	if (!dodoG.empty() && !suG.empty())
+	{
+		if (dodoG.back() + suG.back() == 5)
+			transfer(dodoG, su, suG);
+	}
+	return 1;
+}
 
 int main()
 {
-	int n, m,input1,input2;
+	int n, m, input1, input2;
 	cin >> n >> m;
-	deque<int> a;
-	deque<int> b;
-	deque<int> x;
-	deque<int> y;
+	
 
 	for (int i = 0; i < n; i++)
 	{
 		cin >> input1 >> input2;
-		a.push_back(input1);
-		b.push_back(input2);
+		dodo.push_back(input1);
+		su.push_back(input2);
 	}
 	int cnt = 0;
-
-	while(1)
+	int flag = 1;
+	while (m--)
 	{
-		x.push_back(a.back());
-		a.pop_back();
-		
-		if (a.empty())
+		if (flag % 2 == 1)
 		{
-			cout << "su";
-			return 0;
+			int result = cardGameDo();
+			if (result == 0)
+				return 0;
 		}
-
-		if (x.back() == 5)
-			{
-				while (!y.empty())
-				{
-					a.push_front(y.front());
-					y.pop_front();
-				}
-
-				while (!x.empty())
-				{
-					a.push_front(x.front());
-					x.pop_front();
-				}
-
-		}
-
-	
-
-		if (!x.empty()&&!y.empty())
+		else
 		{
-			if (x.back() + y.back() == 5)
-			{
-				while (!x.empty())
-				{
-					b.push_front(x.front());
-					x.pop_front();
-				}
-
-				while (!y.empty())
-				{
-					b.push_front(y.front());
-					y.pop_front();
-				}
-
-			}
+			int result = cardGameSu();
+			if (result == 0)
+				return 0;
 		}
-
-		cnt++;
-
-		if (cnt == m)
-			break;
-
-		y.push_back(b.back());
-		b.pop_back();
-
-		if (b.empty())
-		{
-			cout << "do";
-			return 0;
-		}
-
-		if (y.back() == 5)
-		{
-			while (!y.empty())
-			{
-				a.push_front(y.front());
-				y.pop_front();
-			}
-
-			while (!x.empty())
-			{
-				a.push_front(x.front());
-				x.pop_front();
-			}
-
-		}
-
-			if (cnt == m)
-				break;
-			if (!x.empty() && !y.empty())
-			{
-				if (x.back() + y.back() == 5)
-				{
-					while (!x.empty())
-					{
-						b.push_front(x.front());
-						x.pop_front();
-					}
-					
-					while (!y.empty())
-					{
-						b.push_front(y.front());
-						y.pop_front();
-					}
-
-				}
-			}
-			cnt++;
-			if (cnt == m)
-				break;
+		flag++;
 	}
 
 
-	if (a.size() > b.size())
+	if (dodo.size() > su.size())
 		cout << "do";
-	else if (a.size() < b.size())
+	else if (dodo.size() < su.size())
 		cout << "su";
 	else
 		cout << "dosu";
