@@ -6,6 +6,7 @@ deque<int> dodo;
 deque<int> dodoG;
 deque<int> su;
 deque<int> suG;
+
 void transfer(deque<int> &a, deque<int> &b, deque<int> &c)
 {
 	while (!a.empty())
@@ -21,49 +22,25 @@ void transfer(deque<int> &a, deque<int> &b, deque<int> &c)
 	}
 }
 
-int cardGameDo()
+int cardGame(deque<int> &a,deque<int>&b,deque<int>&c,deque<int> &d)
 {
-	dodoG.push_back(dodo.back());
-	dodo.pop_back();
+	b.push_back(a.back());
+	a.pop_back();
 
-	if (dodo.empty())
-	{
-		cout << "su";
+	if (a.empty())
 		return 0;
-	}
 
-	if (dodoG.back() == 5)
-		transfer(suG, dodo, dodoG);
+	if (b.back() == 5)
+		transfer(suG, dodo,dodoG);
 
-	if (!dodoG.empty() && !suG.empty())
+	if (!b.empty() && !d.empty())
 	{
-		if (dodoG.back() + suG.back() == 5)
+		if (b.back() + d.back() == 5)
 			transfer(dodoG, su, suG);
 	}
 	return 1;
 }
 
-int cardGameSu()
-{
-	suG.push_back(su.back());
-	su.pop_back();
-
-	if (su.empty())
-	{
-		cout << "do";
-		return 0;
-	}
-
-	if (suG.back() == 5)
-		transfer(suG, dodo, dodoG);
-
-	if (!dodoG.empty() && !suG.empty())
-	{
-		if (dodoG.back() + suG.back() == 5)
-			transfer(dodoG, su, suG);
-	}
-	return 1;
-}
 
 int main()
 {
@@ -83,15 +60,21 @@ int main()
 	{
 		if (flag % 2 == 1)
 		{
-			int result = cardGameDo();
+			int result = cardGame(dodo,dodoG,su,suG);
 			if (result == 0)
+			{
+				cout << "su";
 				return 0;
+			}
 		}
 		else
 		{
-			int result = cardGameSu();
+			int result = cardGame(su,suG,dodo,dodoG);
 			if (result == 0)
+			{
+				cout << "do";
 				return 0;
+			}
 		}
 		flag++;
 	}

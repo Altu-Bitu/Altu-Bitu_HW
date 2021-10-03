@@ -29,6 +29,7 @@ int len(int n)
 				length[i] = max(length[i], length[j] + 1);//만약 추가될수 있는 전깃줄이라면 추가하는게 이득인지 아닌지 판단
 		}
 	}
+	sort(length.begin(), length.end());
 	return n - length[n - 1];
 }
 
