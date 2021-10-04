@@ -21,6 +21,7 @@ int main()
 	
 	for (int i = 0; i < n; i++)
 	{
+		int flag = 0;
 		for (int j = i + 1; j < n; j++)
 		{
 			for (int k = j + 1; k < n; k++)
@@ -31,7 +32,14 @@ int main()
 					cout << max_num;
 					return 0;
 				}
+				else
+				{
+					flag = 1; //만약 적합하지 않은 삼각형 조합이면 바로 i 반복문으로 돌아가기
+					break;
+				}
 			}
+			if (flag)
+				break;
 		}
 	}
 	cout << max_num;

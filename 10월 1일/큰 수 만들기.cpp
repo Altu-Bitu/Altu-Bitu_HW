@@ -19,13 +19,7 @@ string solution(string number, int k) {
             res.pop_back();
             k--;
         }
-        res.push_back(number[i]);
-        if (k == 0)
-        {
-            for (int j = i + 1; j < number.length(); j++)
-                res.push_back(number[j]);
-            break;
-        }
+        res.push_back(number[i]);//반복문 돌동안 계속해서 push하기
 
 
     }

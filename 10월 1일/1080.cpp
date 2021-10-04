@@ -7,6 +7,14 @@ int cnt;
 int a[51][51];
 int b[51][51];
 
+void change(int i, int j)
+{
+	for (int k = i; k < i + 3; k++)
+	{
+		for (int l = j; l < j + 3; l++)
+			a[k][l] = !a[k][l];
+	}
+}
 void trans(int n, int m)
 {
 	for (int i = 0; i < n; i++)
@@ -19,14 +27,7 @@ void trans(int n, int m)
 					continue;
 
 					cnt++;
-					for (int k = i; k < i + 3; k++)
-					{
-						for (int l = j; l < j + 3; l++)
-							if (a[k][l] == 1)
-								a[k][l] = 0;
-							else
-								a[k][l] = 1;
-					}
+					change(i, j);
 
 			}
 		}

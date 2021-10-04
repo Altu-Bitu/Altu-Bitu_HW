@@ -45,6 +45,7 @@ bool cmp(pair<int, int>& a, pair<int, int>& b)
 int main()
 {
 	int n;
+	int flag = 0;
 	cin >> n;
 	vector<int> oil(n, 0);
 	vector<int> dist(n, 0);
@@ -54,6 +55,8 @@ int main()
 	for (int i = 0; i < n; i++)
 	{
 		cin >> oil[i];
+		if (i > 0 && oil[i] != oil[i - 1])
+			flag = 1;
 		if (i != n - 1)
 			s[i] = { oil[i],i };
 	}
@@ -64,7 +67,7 @@ int main()
 	for (int i = 0; i < n - 1; i++)
 	{
 		for (int j = i; j < n - 1; j++)
-			sum[i] += dist[j];
+			sum[i] +=dist[j];
 	}
 
 	cout << cost(n,sum[0],s, sum);
