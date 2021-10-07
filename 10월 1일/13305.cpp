@@ -9,8 +9,8 @@ int main()
 {
 	int n,input;
 	cin >> n;
-	vector<int> oil(n, 0);
-	vector<int> dist(n, 0);
+	vector<long long> oil(n, 0);
+	vector<long long> dist(n, 0);
 	
 	for (int i = 0; i < n-1; i++)
 		cin >>dist[i];
@@ -27,7 +27,7 @@ int main()
 				oil[i] = input;
 		}
 	}
-	int sum = 0;
+	unsigned long long sum = 0;
 	for (int i = 0; i < n - 1; i++)
 		sum += dist[i] * oil[i];
 	cout << sum;
