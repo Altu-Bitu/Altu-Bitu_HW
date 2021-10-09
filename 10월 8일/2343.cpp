@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int n, m;
@@ -7,7 +8,7 @@ vector<int> video;
 
 int blueray(int mid)
 {
-	int sum = 0, cnt = 0;
+	int sum = 0, cnt = 1;
 	for (int i = 0; i < n; i++)//차례대로 더하면서 몇개 블루레이가 필요한지 세보기
 	{
 		if (sum + video[i] > mid)//길이를 초과하면 새로운 블루레이로 갈기
@@ -17,8 +18,7 @@ int blueray(int mid)
 		}
 		sum += video[i];
 	}
-	if (sum)//길이 초과안해도 남은거 있으면 개수추가해주기
-		cnt++;
+
 	return cnt;
 }
 
@@ -46,31 +46,17 @@ int main()//공유기처럼 반대로 블루레이 길이를 찾기
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	
 	cin >> n >> m;
 	video.assign(n, 0);
 
 	int sum = 0;
-	int max = 0;
+	
 	for (int i = 0; i < n; i++)
 	{
 		cin >> video[i];
-		if (max < video[i])
-			max = video[i];
 		sum += video[i];
 	}
-	/*
-	int cnt = 0;
-	for (int i = n - 1; i >= 0; i--)
-	{
-		if (cnt * m >= sum)
-		{
-			cout << cnt;
-			return 0;
-		}
-		cnt += video[i];
-	}
-	*///질문! 이런 식으로 하면 왜 오류가 발생하나요?
+	int max = *max_element(video.begin(),video.end());
 
 	cout<<binarySearch(max, sum, m);
 

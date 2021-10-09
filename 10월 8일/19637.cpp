@@ -22,9 +22,8 @@ int main()
 	for (int i = 0; i < m; i++)
 	{
 		cin >> input;
-		result += name.lower_bound(input)->second;
-		result += '\n';
+		cout << name.lower_bound(input)->second << '\n';
 	}
-	cout << result;
+
 	return 0;
 }
