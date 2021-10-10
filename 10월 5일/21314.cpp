@@ -1,55 +1,68 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
-int main()
+string smallest(string input)
 {
-	string input;
-	string small, big;
-	cin >> input;
+	vector<char> small(input.size(),'0');
+	int flag = 0;
+	for (int i = 0; i < input.size(); i++)
+	{
+		if (!flag && input[i] == 'M')
+		{
+			small[i] = '1';
+			flag = 1;
+		}
+		
+		else if(input[i]=='K')
+		{
+			small[i] = '5';
+			flag = 0;
+		}
+	}
+	string s;
+	for (int i = 0; i < input.size(); i++)
+		s += small[i];
+	return s;
+}
+
+string biggest(string input)
+{
+	vector<char> big(input.size(),'0');
+	int flag = 0;
 	int cnt = 0;
 	for (int i = 0; i < input.size(); i++)
 	{
-		if (input[i] == 'M')
-			cnt++;
-		else
+		if (!flag && input[i] == 'M')
 		{
-			if (cnt != 0)
-			{
-				small += '1';
-				for (int j = 1; j < cnt; j++)
-					small += '0';
-				cnt = 0;
-			}
-			small += '5';
+			flag = 1;
+			cnt = i;
+		}
+		else if(input[i]=='K')
+		{
+			if (cnt!=-1)
+				big[cnt] = '5';
+			else
+				big[i] = '5';
+			flag = 0;
+			cnt = -1;
 		}
 	}
-	cnt = 0;
+	if (flag)
+	{
+		for (int i = cnt; i < input.size(); i++)
+			big[i] = '1';
+	}
+	string s;
 	for (int i = 0; i < input.size(); i++)
-	{
-		if (input[i] == 'M')
-			cnt++;
-		else
-		{
-			big += '5';
-			for (int j = 0; j < cnt; j++)
-				big += '0';
-			cnt = 0;
-		}
-	}
-	if (cnt)
-	{
-		small += '1';
-		for (int j = 1; j < cnt; j++)
-			small += '0';
-	}
-	if (cnt)
-	{
-		big += '1';
-		for (int j = 1; j < cnt; j++)
-			big += '0';
-	}
+		s += big[i];
+	return s;
+}
+int main()
+{
+	string input;
+	cin >> input;
 
-	cout << big << '\n'<<small;
+	cout << biggest(input)<< '\n'<<smallest(input);
 	return 0;
 }

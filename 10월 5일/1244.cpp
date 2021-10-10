@@ -19,8 +19,7 @@ void simulation(int n,int s,bool switches[101])
 		else //여자면 주변 스위치 좌우대칭 가장 큰걸로
 		{
 			switches[num] = !switches[num];
-			int j = 1;
-			while(1)//대칭맞추면 무조건 홀수됨
+			for(int j=1;j<=num;j++)//대칭맞추면 무조건 홀수됨
 			{
 				if (num - j < 1 || num + j > n)
 					break;
@@ -28,7 +27,6 @@ void simulation(int n,int s,bool switches[101])
 					break;
 				switches[num - j] = !switches[num - j];
 				switches[num + j] = !switches[num + j];
-				j++;
 			}
 		}
 	}
@@ -49,11 +47,9 @@ int main()
 
 	for (int i = 1; i <= n; i++)
 	{
-		cout << switches[i];
-		if (n % 20 == 0)//20배수면 끊어가기
+		cout << switches[i]<<' ';
+		if (i % 20 == 0)//20배수면 끊어가기
 			cout << '\n';
-		else
-			cout << ' ';
 	}
 			
 	return 0;
