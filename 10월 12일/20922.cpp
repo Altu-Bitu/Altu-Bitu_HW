@@ -10,10 +10,8 @@ int solution(vector<int>& a,int n,int k)
 	int len = 0;
 	int left = 0, right = 0;
 	index[a[0]]++;
-	while (left <= right)
+	while (left <= right &&right!=n)
 	{
-		if (right == n)
-			break;
 		if (index[a[right]] > k) //개수초과하면 left 전진
 		{
 			index[a[left]]--;

@@ -4,16 +4,23 @@ using namespace std;
 
 bool cmp(int* a, int* b)
 {
+	int cnt = 0;
+	int index = -1;
 	for (int i = 0; i < 26; i++)
 	{
-		int cnt = 0;
+		
 		if (a[i] != b[i])
 		{
+			if (index == -1)
+				index = i;
 			if (abs(a[i] - b[i]) > 1)
 				return false; //차이 두개이상 나므로 틀린거
 			else
 			{
 				cnt++; //개수차이나는 알파벳 추가
+				if (cnt == 2) //딱 두개차이날때
+					if ((a[index] + a[i]) != (b[index] + b[i])) //한쪽문자에만 다른게 두개있다면
+						return false;
 				if (cnt > 2)
 					return false;
 

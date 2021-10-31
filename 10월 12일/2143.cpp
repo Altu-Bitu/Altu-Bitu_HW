@@ -38,6 +38,19 @@ long long solution(int t,vector<int> a, vector<int> b)
 	return result;
 }
 
+void partsum(vector<long long> &c, vector<int> &c_list, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		int sum = 0;
+		for (int j = i; j < n; j++)
+		{
+			sum += c[j];
+			c_list.push_back(sum);
+		}
+	}
+}
+
 int main()
 {
 	int t, n,m;
@@ -52,28 +65,12 @@ int main()
 		cin >> b[i];
 
 	vector<int> a_list;
-	a_list.reserve(n * n); //왜 a_list(n*n,0)으로 하면 오류가 나나요?
+	a_list.reserve(n * n); 
 	vector<int> b_list;
 	b_list.reserve(m * m);
 	//각각 부분합 구하기
-	for (int i = 0; i < n; i++)
-	{
-		int sum = 0;
-		for (int j = i; j < n; j++)
-		{
-			sum += a[j];
-			a_list.push_back(sum);
-		}
-	}
-	for (int i = 0; i < m; i++)
-	{
-		int sum = 0;
-		for (int j = i; j < m; j++)
-		{
-			sum += b[j];
-			b_list.push_back(sum);
-		}
-	}
+	partsum(a, a_list, n);
+	partsum(b, b_list, m);
 	
 	sort(a_list.begin(), a_list.end());
 	sort(b_list.begin(), b_list.end()); //투포인트 사용준비
