@@ -36,10 +36,12 @@ int main()
 	int w, h;
 	queue<ci>q;
 	vector<int> result;
+	
 	do
 	{
 		cin >> h >> w; //h가 행 w가 열
 		vector<vector<int>> map(w+1, vector<int>(h+1, 0));
+		
 		for (int i = 1; i <= w; i++)
 		{
 			for (int j = 1; j <= h; j++)
@@ -52,6 +54,7 @@ int main()
 
 		int cnt = 0;
 		bool visited[51][51] = { false };
+		q = queue<ci>(); //큐 초기화
 		//케이스별 초기화
 		for (int i = 1; i <= w; i++)
 		{
@@ -59,6 +62,7 @@ int main()
 			{
 				if (map[i][j] == 1 && !visited[i][j]) //입장가능한곳만 bfs를 돌린 후 섬의 개수를 하나씩 증가시킨다.
 				{
+					visited[i][j] = true;
 					q.push(ci(i, j));
 					solution(w, h, map, q, visited);
 					cnt++;

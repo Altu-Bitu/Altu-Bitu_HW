@@ -33,7 +33,7 @@ int solution(int n, int k)
 			visited[node - 1] = true;
 
 		}
-		if (node * 2 < limit &&node*2>=0&& !visited[node * 2])
+		if (node * 2 < limit && !visited[node * 2])
 		{
 			q.push({ node * 2,time + 1 });
 			visited[node*2] = true;
