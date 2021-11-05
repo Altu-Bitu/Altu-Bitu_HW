@@ -49,7 +49,8 @@ int main()
 	while (e--)
 	{
 		cin >> a >> b >> c;
-		graph[a].emplace_back(v, c);
+		graph[a].emplace_back(b, c);
+        graph[b].emplace_back(a, c);
 	}
 	cin >> v1 >> v2;
 
