@@ -5,18 +5,16 @@ using namespace std;
 
 typedef pair<int, int> ci;
 
-int INF = 100;
+int INF = 987654321;
 int dr[4] = { -1,1,0,0 };
 int dc[4] = { 0,0,-1,1 };
 
 int solution(int n, vector<vector<int>>& graph)
 {
-	vector<vector<int>> dist(n, vector<int> (n,INF));
-	vector<vector<bool>> visited(n, vector<bool>(n, false));
+	vector<vector<int>> dist(n, vector<int>(n, INF));
 	priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq; 
-	
 	pq.push({ graph[0][0], {0, 0} }); //(0,0)에서 시작
-	visited[0][0] = true;
+	dist[0][0] = pq.top().first;
 
 	while (!pq.empty())
 	{
@@ -25,25 +23,26 @@ int solution(int n, vector<vector<int>>& graph)
 		int weight = pq.top().first;
 		pq.pop();
 
+		if (weight > dist[x][y])
+			continue;
 		for (int i = 0; i < 4; i++) //상하좌우탐색
 		{
 			int next_x = x + dr[i];
 			int next_y = y + dc[i];
 			
-			if (0 <= next_x && next_x <n && 0 <= next_y && next_y < n)
+			if (0 > next_x || next_x >= n || 0 > next_y || next_y >= n)
+				continue;
+			int next_weight = dist[x][y] + graph[next_x][next_y]; //계속해서 weight를 갱신하면 나중에 총 weight가 가장 적은것을 선택
+			if ( dist[next_x][next_y] > next_weight)
 			{
-				int next_weight = weight + graph[next_x][next_y]; //계속해서 weight를 갱신하면 나중에 총 weight가 가장 적은것을 선택
-				if (!visited[next_x][next_y] && dist[next_x][next_y] > next_weight)
-				{
-					visited[next_x][next_y] = true;
-					dist[next_x][next_y] = next_weight;
-					pq.push({ next_weight, { next_x,next_y} });
-				}
+				dist[next_x][next_y] = next_weight;
+				pq.push({ next_weight, { next_x, next_y} });
 			}
+	
 		}
 	}
-		int sum = dist[n-1][n-1];
-	return sum;
+	return dist[n-1][n-1];
+
 }
 
 int main()

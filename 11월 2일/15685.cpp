@@ -4,31 +4,32 @@
 using namespace std;
 
 bool lattice[101][101] = { false };
+const int MAX = 100;
 
 void solution(int x, int y, int d, int g)
 {
 	int dr[4] = { 0,-1,0,1 }; //우상좌하
 	int dc[4] = { 1,0,-1,0 };
 	
-	lattice[x][y] = true;
+	//초기설정
+	lattice[x][y] = true; //시작점표기
 	vector<int> original;
 	original.push_back(d);
+
 	while (g--)
 	{
-		vector<int> copy = original;
-		for (int i = copy.size() - 1; i >= 0; i--) //k세대는 k-1세대만큼 더 이동하므로 기존에 있던 개수만큼 새로운 회전방향을 추가해줘야한다.
+		int len = original.size() - 1;
+		for (int i = len; i >= 0; i--) //k세대는 k-1세대만큼 더 이동하므로 기존에 있던 개수만큼 새로운 회전방향을 추가해줘야한다.
 		{
-			original.push_back((copy[i] + 1) % 4); //k-1세대의 회전 방향은 k세대에서 인덱스가 증가한 회전방향 형태로 나타난다.즉 k-1세대에 d가 0이면 k세대에 d가 1이된다.
+			original.push_back((original[i] + 1) % 4); //k-1세대의 회전 방향은 k세대에서 인덱스가 증가한 회전방향 형태로 나타난다.즉 k-1세대에 d가 0이면 k세대에 d가 1이된다.
 		}
-	}
 
-	for (int i = 0; i < original.size(); i++)
-	{
-
-		x += dr[original[i]];
-		y += dc[original[i]]; //원하는 방향으로 시작점 갱신
-		if (x >= 0 && x <= 100 && y >= 0 && y <= 100) 
+		for(int i=1;i<original.size();i++)
+		{
+			x += dr[original[i]];
+			y += dc[original[i]]; //원하는 방향으로 시작점 새로만듬
 			lattice[x][y] = true;
+		}
 	}
 
 } //이부분만 참고https://jaimemin.tistory.com/1163
@@ -36,9 +37,9 @@ void solution(int x, int y, int d, int g)
 int count()
 {
 	int cnt = 0;
-	for (int i = 0; i < 101; i++) 
+	for (int i = 0; i < MAX; i++) 
 	{
-		for (int j = 0; j < 101; j++)
+		for (int j = 0; j < MAX; j++)
 		{
 			if (lattice[i][j] && lattice[i + 1][j + 1] && lattice[i][j + 1] && lattice[i + 1][j]) //한 점을 기준으로 옆위로 증가시켜 정사각형을 조사하면 중복없이 조사가능
 				cnt++;
@@ -55,7 +56,7 @@ int main()
 
 	int n, x, y, d, g;
 	cin >> n;
-	for (int i = 0; i < n; i++)
+	while (n--)
 	{
 		cin >> x >> y >> d >> g;
 		solution(x, y, d, g);
