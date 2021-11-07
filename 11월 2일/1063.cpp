@@ -44,11 +44,10 @@ void solution(string move,int r,int c,int rs,int rc)
 	{
 		if (move == direction[i])
 		{
-			change(r, c, rs, rc,i);
+			change(r, c, rs, rc, i);
 			return;
 		}
 	}
-	return;
 }
 
 int main()

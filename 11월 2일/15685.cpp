@@ -6,13 +6,13 @@ using namespace std;
 bool lattice[101][101] = { false };
 const int MAX = 100;
 
-void solution(int x, int y, int d, int g)
+void solution(int y, int x, int d, int g)
 {
 	int dr[4] = { 0,-1,0,1 }; //우상좌하
 	int dc[4] = { 1,0,-1,0 };
 	
 	//초기설정
-	lattice[x][y] = true; //시작점표기
+	lattice[y][x] = true; //시작점표기
 	vector<int> original;
 	original.push_back(d);
 
@@ -23,15 +23,18 @@ void solution(int x, int y, int d, int g)
 		{
 			original.push_back((original[i] + 1) % 4); //k-1세대의 회전 방향은 k세대에서 인덱스가 증가한 회전방향 형태로 나타난다.즉 k-1세대에 d가 0이면 k세대에 d가 1이된다.
 		}
-
-		for(int i=1;i<original.size();i++)
-		{
-			x += dr[original[i]];
-			y += dc[original[i]]; //원하는 방향으로 시작점 새로만듬
-			lattice[x][y] = true;
-		}
+	}
+	for(int i=0;i<original.size();i++)
+	{
+		y += dr[original[i]];
+		x += dc[original[i]]; //원하는 방향으로 시작점 새로만듬
+		if(y>=0&&y<=MAX&&x>=0&&x<=MAX)
+			lattice[y][x] = true;
+		
 	}
 
+
+	
 } //이부분만 참고https://jaimemin.tistory.com/1163
 
 int count()
@@ -59,7 +62,7 @@ int main()
 	while (n--)
 	{
 		cin >> x >> y >> d >> g;
-		solution(x, y, d, g);
+		solution(y, x, d, g);
 	}
 	cout << count();
 	return 0;

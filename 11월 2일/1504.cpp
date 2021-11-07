@@ -7,6 +7,7 @@
 using namespace std;
 
 typedef pair<int, int> ci;
+
 const int INF = 987654321; //최대 V-1개의 간선을 지나게 됨
 
 //다익스트라
