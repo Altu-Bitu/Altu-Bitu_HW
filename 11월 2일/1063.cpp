@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include <map>
 using namespace std;
 
 int kingr, kingc, stoner, stonec;
@@ -39,19 +39,18 @@ void change(int r, int c,int rs,int cs, int i)
 
 void solution(string move,int r,int c,int rs,int rc)
 {
+	map<string, int> dir;
 	string direction[8] = { "R", "L", "B","T","RT","LT","RB","LB" };
 	for (int i = 0; i < 8; i++)
 	{
-		if (move == direction[i])
-		{
-			change(r, c, rs, rc, i);
-			return;
-		}
+		dir[direction[i]] = i;
 	}
+	change(r, c, rs, rc, dir[move]);
 }
 
 int main()
 {
+	
 	string king, stone;
 	int n;
 	cin >> king >> stone >> n;

@@ -59,8 +59,16 @@ int main()
     vector<int> ans1 = dijkstra(v, v1, graph);
     vector<int>ans2 = dijkstra(v, v2, graph);
     //루트는  1->node1->node2->v 혹은 1->node2->node1->N
-    int answer = min({ ans[v1] + ans1[v2] + ans2[v],ans[v2] + ans2[v1]+ ans1[v]});
-    if (answer >= INF || answer < 0)
+    bool flag1 = false;
+    bool flag2 = false;
+    if (ans[v1] == INF || ans1[v2] == INF || ans2[v] == INF)
+        flag1 = true;
+    if (ans[v2] == INF || ans2[v1] == INF || ans1[v] == INF)
+        flag2 = true;
+    //어떤 노드하나에서 INF인 경우, 즉 지나지 않는다면 그 점을 체크해주기
+   
+    int answer = min({ ans[v1] + ans1[v2] + ans2[v],ans[v2] + ans2[v1]+ ans1[v]}); 
+    if (flag1 && flag2) //둘다 답이 없는 경우
         cout << -1;
     else
         cout << answer;
