@@ -28,8 +28,7 @@ void solution(int y, int x, int d, int g)
 	{
 		y += dr[original[i]];
 		x += dc[original[i]]; //원하는 방향으로 시작점 새로만듬
-		if(y>=0&&y<=MAX&&x>=0&&x<=MAX)
-			lattice[y][x] = true;
+		lattice[y][x] = true;
 		
 	}
 
