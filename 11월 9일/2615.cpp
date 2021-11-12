@@ -20,6 +20,8 @@ ci winner(int matrix[19][19],int i, int j,ci result)
 	//6번째 확인해보기
 	if (flag && matrix[i][j] == matrix[i][j + 5])
 		flag = 0;
+	if (flag && matrix[i][j] == matrix[i][j-1])//근데 어차피 왼쪽부터 세기 시작하는데 그 이전값을 확인해줄 필요가있나요?
+		flag = 0;
 
 	int flag1 = 1;
 	//세로
@@ -35,7 +37,8 @@ ci winner(int matrix[19][19],int i, int j,ci result)
 	//6번째 확인해보기
 	if (flag1 && matrix[i][j] == matrix[i+5][j])
 		flag1 = 0;
-
+	if (flag1 && matrix[i][j] == matrix[i-1][j])
+		flag1 = 0;
 	int flag2 = 1;
 	//대각선
 	for (int k = 1; k < 5; k++)
@@ -50,7 +53,8 @@ ci winner(int matrix[19][19],int i, int j,ci result)
 	//6번째 확인해보기
 	if (flag2 && matrix[i][j] == matrix[i + 5][j+5])
 		flag2 = 0;
-
+	if (flag2 && matrix[i][j] == matrix[i-1][j-1])
+		flag2 = 0;
 	int flag3 = 1; 
 	//위로 대각선
 	for (int k = 1; k < 5; k++)
@@ -65,13 +69,10 @@ ci winner(int matrix[19][19],int i, int j,ci result)
 	//6번째 확인해보기
 	if (flag3 && matrix[i][j] == matrix[i - 5][j+5])
 		flag3 = 0;
+	if (flag3 && matrix[i][j] == matrix[i - 1][j + 1])
+		flag3 = 0;
 
-	/*	if (flag && flag1 || flag && flag2 || flag&&flag3||flag1 && flag2||flag1&&flag3||flag2&&flag3) //두개이상이 겹친다면 실패
-		return result;
-	else if (!flag && !flag1 && !flag2&&!flag3)
-		return result;
-	else*/
-	if(flag||flag1||flag2||flag3)
+	if(flag||flag1||flag2||flag3)//동시되는 경우는 없기때문에 4개중 하나만 1이면 된다
 	{
 		if (matrix[i][j] == 1)
 			result = { 1,{i + 1,j + 1} };

@@ -25,6 +25,17 @@ void dfsRecur(int v) {
         dfsRecur(adj_list[v][i]);
 }
 
+int check(vector<int>& result, vector<int>& answer,int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (result[i] != answer[i])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -53,15 +64,8 @@ int main()
 
     visited_recur.assign(n + 1, false);
     dfsRecur(1);
-    for (int i = 0; i < n; i++)
-    {
-        if (result[i] != answer[i])
-        {
-            cout << 0;
-            return 0;
-        }
-    }
-    cout << 1;
+    int ans = check(result, answer,n);
+    cout << ans;
    
 	return 0;
 }

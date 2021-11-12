@@ -11,10 +11,12 @@ vector<char> back(int x, vector<ci>& path)
 {
 	vector<char> result(0); //정답 경로
 	char c = path[x].second;
-	while (x != -1) {
+	while (1) {
 		result.push_back(c);
-		x = path[x].first;
-		c = path[x].second; //다음 정점
+		x = path[x].first; //이전 숫자 찾음
+		if (x == -1)
+			break;
+		c = path[x].second; //다음 노드
 	}
 	return result;
 }
@@ -22,11 +24,12 @@ vector<char> back(int x, vector<ci>& path)
 vector<char> calculate(int a, int b)
 {
 	vector<bool> check(SIZE + 1, false);
-	vector<ci> path(SIZE + 1, { -1,'A' }); //경로 저장 벡터
+	vector<ci> path(SIZE + 1, { -1,' ' }); //경로 저장 벡터
 	queue<int>q;
 
 	check[a] = true;
 	q.push(a);
+
 	while (!q.empty())
 	{
 		int x = q.front();
@@ -36,32 +39,25 @@ vector<char> calculate(int a, int b)
 		{
 			break;
 		}
-
-		if (!check[(a * 2) / SIZE])
+		 //D
+		if (!check[(x * 2) % SIZE])
 		{
-			int na = (a * 2) / SIZE;
+			int na = (x * 2) % SIZE;
 			check[na] = true;
 			path[na] = { x,'D' };
 			q.push(na);
 		}
-		
-		if (a == 1&&!check[SIZE-1])
+		 //S
+		int na = (x - 1) < 0 ? SIZE - 1 : x - 1;
+		if (!check[na])
 		{
-			int na = SIZE - 1;
 			check[na] = true;
 			path[na] = { x,'S' };
 			q.push(na);
 		}
 
-		if (a != 1 && !check[a - 1])
-		{
-			int na = a - 1;
-			check[na] = true;
-			path[na] = { x,'S' };
-			q.push(na);
-		}
-
-		int na = a / 1000 + (a % 1000) * 10;
+		//L
+		na = x / 1000 + (x % 1000) * 10;
 		if (!check[na])
 		{
 			check[na] = true;
@@ -69,8 +65,8 @@ vector<char> calculate(int a, int b)
 			q.push(na);
 		}
 
-
-		na = a / 10 + (a % 10) * 1000;
+		//R
+		na = x / 10 + (x % 10) * 1000;
 		if (!check[na])
 		{
 			check[na] = true;
@@ -78,6 +74,7 @@ vector<char> calculate(int a, int b)
 			q.push(na);
 		}
 	}
+	//path돌면서 계산루트 찾기
 	vector<char>result = back(b, path);
 	return result;
 }
@@ -92,7 +89,7 @@ int main()
 	{
 		cin >> a >> b;
 		result = calculate(a, b);
-		for (int i = result.size() - 1; i >= 0; i--)
+		for (int i = result.size() - 2; i >= 0; i--)
 			answer += result[i];
 		answer += '\n';
 	}
