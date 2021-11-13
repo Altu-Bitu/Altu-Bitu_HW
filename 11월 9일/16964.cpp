@@ -25,7 +25,7 @@ void dfsRecur(int v) {
         dfsRecur(adj_list[v][i]);
 }
 
-int check(vector<int>& result, vector<int>& answer,int n)
+bool check(vector<int>& result, vector<int>& answer,int n)
 {
     for (int i = 0; i < n; i++)
     {

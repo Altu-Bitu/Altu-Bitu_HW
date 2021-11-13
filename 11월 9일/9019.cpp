@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int SIZE = 10e4;
+int SIZE = 10000;
 typedef pair<int, char> ci;
 
 vector<char> back(int x, vector<ci>& path)
