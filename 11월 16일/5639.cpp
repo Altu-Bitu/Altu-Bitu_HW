@@ -2,11 +2,11 @@
 
 using namespace std;
 
-typedef struct TreeNode
+struct TreeNode
 {
 	int key;
 	struct TreeNode* left, * right;
-}TreeNode;
+};
 
 void postorder(TreeNode* root)
 {
@@ -22,7 +22,7 @@ TreeNode* insert(TreeNode* node, int key)
 {
 	if (node == NULL) //최초 루트 만들기
 	{
-		TreeNode* temp = (TreeNode*)malloc(sizeof(TreeNode));
+		TreeNode* temp = new TreeNode;
 		temp->key = key;
 		temp->left = temp->right = NULL;
 		return temp;

@@ -17,7 +17,7 @@ string check(int t, int k)
 			return "no";
 	}
 
-	else if (t == 2)//단절선인지
+	else//단절선인지
 	{
 		//트리에서는 간선 제거하면 무조건 단절됨->선 하나로만 연결되어있음
 		return "yes";
@@ -28,7 +28,6 @@ int main()
 {
 	int n,a,b,q,t,k;
 	cin >> n;
-	visited.assign(n + 1, false);
 	graph.assign(n + 1, vector<int>(0));
 	for (int i = 1; i < n; i++)
 	{
