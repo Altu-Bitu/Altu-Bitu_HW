@@ -22,7 +22,7 @@ TreeNode* insert(TreeNode* node, int key)
 {
 	if (node == NULL) //최초 루트 만들기
 	{
-		TreeNode* temp = new TreeNode;
+		TreeNode* temp = new TreeNode();
 		temp->key = key;
 		temp->left = temp->right = NULL;
 		return temp;

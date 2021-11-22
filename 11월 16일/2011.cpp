@@ -9,8 +9,9 @@ int LEFT = 1000000;
 //dp[i]+=dp[i-1]->1~9사이
 //dp[i]+=dp[i-2]->10~26사이
 
-int count(vector<int> &dp,vector<int>&list,string num)
+int count(vector<int>&list,string num)
 {
+	vector<int> dp(5001, 0);
 	for (int i = 1; i <= num.size(); i++)
 	{
 		list[i] = num[i - 1] - '0';
@@ -26,7 +27,7 @@ int count(vector<int> &dp,vector<int>&list,string num)
 		dp[1] = 1;
 	for (int i = 2; i <= num.length(); i++)
 	{
-		if (list[i] >= 1 && list[i] <= 9)//한자리수면
+		if (list[i]!=0)//한자리수면
 		{
 			dp[i] += dp[i - 1];//12가 있으면 1, 2로 읽으므로 바로 이전것에 해준다
 			dp[i] %= LEFT;
@@ -47,11 +48,11 @@ int main()
 {
 	string num;
 	cin >> num;
-	vector<int> dp(5001, 0);
+	
 	vector<int> list(num.size()+1,0);
 
 
-	cout << count(dp, list,num);
+	cout << count(list,num);
 
 	return 0;
 }//참고https://yabmoons.tistory.com/163
