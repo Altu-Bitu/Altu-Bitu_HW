@@ -35,7 +35,7 @@ int main()
 			cnt++;//도킹함
 			unionInput(root - 1, root);
 		}
-		else //왜 else{ cout<<cnt return 0}로 하면 틀렸다고 나오나요?
+		else 
 		  break;
 	}
 	cout << cnt;

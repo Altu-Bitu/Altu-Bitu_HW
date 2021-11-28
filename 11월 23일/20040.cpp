@@ -17,13 +17,12 @@ int findParent(int node) {
 }
 
 //Union 연산
-void unionInput(int x, int y,int cnt) {
+void unionInput(int x, int y) {
     int xp = findParent(x);
     int yp = findParent(y);
 
     if (xp == yp) { //같은 집합에 있다면 유니온 할 수 없음
         flag = 1;
-        cout << cnt;
         return;
     }
  
@@ -47,9 +46,12 @@ int main()
 	for (int i = 0; i < m; i++)
 	{
 		cin >> x >> y;
-		unionInput(x, y,i+1);
+		unionInput(x, y);
         if (flag)
+        {
+            cout << i+1;
             return 0;
+        }
 	}
     cout << 0;
 

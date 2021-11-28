@@ -7,7 +7,7 @@ int MAX = 214748391;
 int min_num = MAX;
 int height;
 
-void find(int n,int m, int b,int k, vector<vector<int>>& ground)
+int find(int n,int m, int b,int k, vector<vector<int>>& ground)
 {
 	int remove = 0;
 	int fill = 0;
@@ -27,13 +27,11 @@ void find(int n,int m, int b,int k, vector<vector<int>>& ground)
 	if (remove + b - fill >= 0)
 	{
 		int time = remove * 2 + fill;
-		if (min_num > time)
-		{
-			min_num = time;
-			height = k;
-		}
+		return time;
 	}
+	return -1;
 }
+
 int main()
 {
 	int n, m, b;
@@ -47,9 +45,16 @@ int main()
 		}
 	}
 	
-	for (int k = 0; k < 257; k++)
+	for (int k = 256; k >=0; k--)
 	{
-		find(n, m,b, k, ground);
+		int time=find(n, m,b, k, ground);
+		if (time == -1)
+			continue;
+		if (min_num > time)
+		{
+			min_num = time;
+			height = k;
+		}
 	}
 	cout << min_num <<' '<< height;
 	return 0;
